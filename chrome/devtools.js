@@ -31,11 +31,6 @@ function initialize(w) {
 				return;
 			}
 
-//			if (msg.action === 'unload') {
-//				onStop(doc);
-//				return;
-//			}
-
 			var data = msg.data;
 			if (data.functionName === 'setTimeout' || data.functionName === 'setInterval') {
 				var div = doc.createElement('div');

@@ -13,14 +13,6 @@ if (!window.__setInterval_sniffer_initialized) {
 		}
 	}, false);
 
-//	window.addEventListener('unload', function() {
-//		console.warn('window unload!!');
-//		port.postMessage({
-//			from: 'contentscript',
-//			action: 'unload'
-//		});
-//	}, false);
-
 	port.onMessage.addListener(function(msg) {
 		if (msg.from === 'devtools') {
 			console.info('from devtools', msg);

@@ -14,13 +14,6 @@ function removeByTabId(tabId) {
 	devtools2tabs[port.portId_] = null;
 	port.disconnect();
 }
-//function removeByDevtoolsPort(portId) {
-//	console.info('removeByDevtoolsPort', portId);
-//	var port = devtools2tabs[portId];
-//	tabs2devtools[tabId] = null;
-//	devtools2tabs[port.portId_] = null;
-//	port.disconnect();
-//}
 
 chrome.runtime.onConnect.addListener(function(port) {
 	console.log('port.name %s', port.name);
@@ -73,7 +66,6 @@ chrome.runtime.onConnect.addListener(function(port) {
 		contentScriptPortByTabId[port.sender.tab.id] = port;
 
 		port.onMessage.addListener(function(msg, port) {
-			//console.log('contentscript %o', msg);
 			if (msg.from !== 'contentscript') {
 				console.error(msg);
 				throw new Error('Where is this coming from?');
@@ -82,16 +74,7 @@ chrome.runtime.onConnect.addListener(function(port) {
 				var tabId = port.sender.tab.id;
 				var devtoolsPort = tabs2devtools[tabId];
 				devtoolsPort.postMessage(msg);
-			} /*else if (msg.action === 'unload') {
-				var tabId = port.sender.tab.id;
-				var devtoolsPort = tabs2devtools[tabId];
-				devtoolsPort.postMessage({
-					from: 'contentscript',
-					action: 'unload'
-				});
-				console.log('unload', tabId);
-				removeByTabId(tabId);
-			}*/
+			}
 
 		});
 
@@ -99,10 +82,6 @@ chrome.runtime.onConnect.addListener(function(port) {
 			console.info('disconnect contentscript port');
 			var tabId = port.sender.tab.id;
 			var devtoolsPort = tabs2devtools[tabId];
-//			devtoolsPort.postMessage({
-//				from: 'contentscript',
-//				action: 'unload'
-//			});
 			devtoolsPort.disconnect();
 			cleanup(tabId);
 		});
