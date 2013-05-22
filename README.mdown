@@ -1,6 +1,6 @@
 # setInterval sniffer
 
-Hunt down lags and memory leaks by keeping tabs on your setTimeout.
+![Chrome DevTools Timers panel](http://nv.github.io/setInterval-sniffer/setInterval-sniffer.png)
 
 ## Install
 
