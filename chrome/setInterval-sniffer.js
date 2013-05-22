@@ -1,28 +1,19 @@
 (function() {
 
-	var originalSetTimeout = window.setTimeout;
 	var originalSetInterval = window.setInterval;
 	var originalClearInterval = window.clearInterval;
-	var originalClearTimeout = window.clearTimeout;
+	// TODO: track setTimeout too, but separate it visually from setInterval
+	// var originalSetTimeout = window.setTimeout;
+	// var originalClearTimeout = window.clearTimeout;
+
 
 	function post(data) {
-		data.timer_watcher = true;
+		data.setInterval_sniffer = true;
 		window.postMessage(data, '*');
 	}
 
 
 	function enable() {
-		window.setTimeout = function(fn, time) {
-			var id = originalSetTimeout(fn, time);
-			post({
-				functionName: 'setTimeout',
-				fn: fn.toString(),
-				id: id,
-				time: time
-			});
-			return id;
-		};
-
 		window.setInterval = function(fn, time) {
 			var id = originalSetInterval(fn, time);
 			post({
@@ -43,25 +34,54 @@
 			return result;
 		};
 
-		window.clearTimeout = function(id) {
-			var result = originalClearTimeout(id);
-			post({
-				functionName: 'clearTimeout',
-				id: id
-			});
-			return result;
-		}
+		//window.setTimeout = function(fn, time) {
+		//	var id = originalSetTimeout(fn, time);
+		//	post({
+		//		functionName: 'setTimeout',
+		//		fn: fn.toString(),
+		//		id: id,
+		//		time: time
+		//	});
+		//	return id;
+		//};
+		//
+		//window.clearTimeout = function(id) {
+		//	var result = originalClearTimeout(id);
+		//	post({
+		//		functionName: 'clearTimeout',
+		//		id: id
+		//	});
+		//	return result;
+		//}
 	}
 
 
 
 	function disable() {
-		window.setTimeout = originalSetTimeout;
 		window.setInterval = originalSetInterval;
 		window.clearInterval = originalClearInterval;
-		window.clearTimeout = originalClearTimeout;
+		// window.setTimeout = originalSetTimeout;
+		// window.clearTimeout = originalClearTimeout;
 	}
 
+
+	// TODO: post file names and line numbers
+	function prepareStack(constructor) {
+		var _Error_prepareStackTrace = Error.prepareStackTrace;
+		Error.prepareStackTrace = function(error, stack) {
+			return stack;
+		};
+		var error = new Error();
+		Error.captureStackTrace(error, constructor);
+		Error.prepareStackTrace = _Error_prepareStackTrace;
+		var stack = prettyStackTrace(error.stack);
+		stack.unshift({
+			isTop: true,
+			functionName: constructor.name,
+			data: Date.now()
+		});
+		return stack;
+	}
 
 	function prettyStackTrace(callSites) {
 		var result = [];
@@ -87,27 +107,9 @@
 	}
 
 
-	function prepareStack(constructor) {
-		var _Error_prepareStackTrace = Error.prepareStackTrace;
-		Error.prepareStackTrace = function(error, stack) {
-			return stack;
-		};
-		var error = new Error();
-		Error.captureStackTrace(error, constructor);
-		Error.prepareStackTrace = _Error_prepareStackTrace;
-		var stack = prettyStackTrace(error.stack);
-		stack.unshift({
-			isTop: true,
-			functionName: constructor.name,
-			data: Date.now()
-		});
-		return stack;
-	}
-
-
 	window.addEventListener('message', function(e) {
 		var data = e.data;
-		if (data && data.from === 'Timer Watcher Content Script') {
+		if (data && data.from === 'setInterval sniffer content script ') {
 			console.info(data.action);
 			if (data.action === 'start') {
 				enable();

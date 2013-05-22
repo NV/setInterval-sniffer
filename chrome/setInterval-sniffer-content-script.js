@@ -1,11 +1,11 @@
 if (!window.__setInterval_sniffer_initialized) {
 	window.__setInterval_sniffer_initialized = true;
-	console.log('inject.js initialized');
+	console.log('setInterval-content-script.js initialized');
 
 	var port = chrome.runtime.connect({name: "contentscript"});
 	window.addEventListener('message', function(event) {
-		if (event.data && event.data.timer_watcher) {
-			delete event.data.timer_watcher;
+		if (event.data && event.data.setInterval_sniffer) {
+			delete event.data.setInterval_sniffer;
 			port.postMessage({
 				from: 'contentscript',
 				data: event.data
@@ -17,7 +17,7 @@ if (!window.__setInterval_sniffer_initialized) {
 		if (msg.from === 'devtools') {
 			console.info('from devtools', msg);
 			window.postMessage({
-				from: 'Timer Watcher Content Script',
+				from: 'setInterval sniffer content script ',
 				action: msg.action
 			}, '*');
 		} else {
@@ -27,7 +27,7 @@ if (!window.__setInterval_sniffer_initialized) {
 
 	port.onDisconnect.addListener(function() {
 		window.postMessage({
-			from: 'Timer Watcher Content Script',
+			from: 'setInterval sniffer content script ',
 			action: 'stop'
 		}, '*');
 	});

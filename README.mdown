@@ -1,6 +1,6 @@
 # setInterval sniffer
 
-Hunt slow downs and memory leaks by keeping tabs on your setTimeout.
+Hunt down lags and memory leaks by keeping tabs on your setTimeout.
 
 ## Install
 
@@ -33,3 +33,4 @@ window.setInterval = function(fn, time) {
   * Button to kill an interval in Timers panel
   * Add stacktrace data using the technic from [captureCalls.js](https://github.com/NV/captureCalls.js)
   * Display setTimeout too, visually separate them from setInterval
+  * Make it prettier

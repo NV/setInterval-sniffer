@@ -9,7 +9,7 @@ input {
 hr {
 	margin: 0;
 	border: none;
-	border-bottom: 1px solid rgba(0,0,0,0.2);
+	border-bottom: 1px solid rgba(0, 0, 0, 0.3);
 }
 hr + hr {
 	visibility: hidden;
@@ -30,6 +30,7 @@ hr + hr {
 
 .item {
 	padding: 2px 8px;
+	border-left: 3px solid #C967D1
 }
 
 #stop_button {
@@ -40,12 +41,14 @@ hr + hr {
 }
 
 .cleared {
-	color: #AAA;
-	font-size: 9px;
+	border-color: #CCC;
+	color: #999;
+	font-size: 10px;
 }
 
 #out {
 	white-space: pre-wrap;
 	margin: 0;
 	tab-size: 2;
+	font: 11px monospace;
 }
