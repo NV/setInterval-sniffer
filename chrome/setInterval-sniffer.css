@@ -1,0 +1,51 @@
+body {
+	margin: 0;
+}
+
+input {
+	font-size: 16px;
+}
+
+hr {
+	margin: 0;
+	border: none;
+	border-bottom: 1px solid rgba(0,0,0,0.2);
+}
+hr + hr {
+	visibility: hidden;
+}
+
+#controls {
+	background: #f3f3f3;
+	padding: 8px;
+	display: -webkit-flex;
+}
+.left {
+	-webkit-flex: 1;
+}
+.right {
+	-webkit-flex: 1;
+	text-align: right;
+}
+
+.item {
+	padding: 2px 8px;
+}
+
+#stop_button {
+	visibility: hidden;
+}
+.started #stop_button {
+	visibility: visible;
+}
+
+.cleared {
+	color: #AAA;
+	font-size: 9px;
+}
+
+#out {
+	white-space: pre-wrap;
+	margin: 0;
+	tab-size: 2;
+}

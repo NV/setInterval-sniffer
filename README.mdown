@@ -1,0 +1,35 @@
+# setInterval sniffer
+
+Hunt slow downs and memory leaks by keeping tabs on your setTimeout.
+
+## Install
+
+  * chrome://extensions/
+  * Turn on "Developer mode" checkbox
+  * Click "Load unpacked extension..." button
+  * Select `setInterval-sniffer/chrome` folder
+
+## How does it work
+
+The sniffer monkey patch (extend without altering the original source code) setInterval method:
+
+```javascript
+var originalSetInterval = window.setInterval;
+window.setInterval = function(fn, time) {
+	var id = originalSetInterval(fn, time);
+	post({
+		functionName: 'setInterval',
+		fn: fn.toString(),
+		id: id,
+		time: time
+	});
+	return id;
+};
+```
+
+## Roadmap
+
+  * Don't stop sniffing on page reload
+  * Button to kill an interval in Timers panel
+  * Add stacktrace data using the technic from [captureCalls.js](https://github.com/NV/captureCalls.js)
+  * Display setTimeout too, visually separate them from setInterval
