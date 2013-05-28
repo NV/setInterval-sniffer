@@ -1,6 +1,6 @@
 {
 	"name": "setInterval sniffer",
-	"version": "0.1",
+	"version": "1.0",
 	"manifest_version": 2,
 	"description": "Keeps tabs on your setTimeout's",
 	"icons": {

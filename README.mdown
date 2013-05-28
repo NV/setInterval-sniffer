@@ -4,6 +4,8 @@
 
 ## Install
 
+From [Chrome App Store](https://chrome.google.com/webstore/detail/setinterval-sniffer/odkgihncjgklajjabihpoipfnpcjhdno) or from the repository:
+
   * chrome://extensions/
   * Turn on "Developer mode" checkbox
   * Click "Load unpacked extension..." button
