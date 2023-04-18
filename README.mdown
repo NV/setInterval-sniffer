@@ -2,6 +2,10 @@
 
 ![Chrome DevTools Timers panel](http://nv.github.io/setInterval-sniffer/setInterval-sniffer.png)
 
+## This no longer works
+
+If you relly want to see this extension, consider sponsoring my projects.
+
 ## Install
 
 From [Chrome App Store](https://chrome.google.com/webstore/detail/setinterval-sniffer/odkgihncjgklajjabihpoipfnpcjhdno) or from the repository:
